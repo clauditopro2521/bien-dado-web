@@ -127,6 +127,26 @@ nav.links a:hover { color: var(--ink); }
   transform: translateX(-120%);
   animation: bd-sheen 3.2s ease-in-out 1.4s infinite;
 }
+/* Pantalla de entrada: el titular ocupa toda la pantalla */
+.intro .wrap {
+  display: grid; grid-template-columns: 1fr; place-items: center; position: relative;
+  min-height: calc(100vh - 66px); min-height: calc(100svh - 66px); padding-block: 48px 96px;
+}
+.scroll-cue {
+  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+  display: grid; justify-items: center; gap: 8px; text-decoration: none;
+  font: 500 var(--step--1)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
+}
+.scroll-cue i { width: 2px; height: 34px; background: linear-gradient(var(--fucsia), transparent); animation: cue 1.6s ease-in-out infinite; transform-origin: top; }
+@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* Al bajar, el texto entra por la izquierda y el mockup por la derecha */
+.js-reveal .reveal { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+.js-reveal .reveal.from-left { transform: translateX(-80px); }
+.js-reveal .reveal.from-right { transform: translateX(80px); transition-delay: .15s; }
+.js-reveal .reveal.is-in { opacity: 1; transform: none; }
+#para-creadores { overflow-x: clip; }
+
 @keyframes bd-wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes bd-text { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bd-sheen { 0% { transform: translateX(-120%); } 45%, 100% { transform: translateX(320%); } }
@@ -292,13 +312,19 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 </header>
 
 <main id="inicio">
-  <section class="hero">
+  <section class="intro hero">
     <div class="wrap">
       <div class="hero-title">
         <span class="label">Micro agencia UGC · Lima, Perú</span>
         <h1>Tu contenido, <em>bien dado.</em></h1>
       </div>
-      <div class="hero-copy">
+      <a class="scroll-cue" href="#para-creadores" aria-label="Bajar a la siguiente sección"><span>Desliza</span><i aria-hidden="true"></i></a>
+    </div>
+  </section>
+
+  <section class="hero" id="para-creadores">
+    <div class="wrap">
+      <div class="hero-copy reveal from-left">
         <p class="lede">Ayudamos a creadores UGC que empezaron en 2026 a armar su portafolio, grabar con equipo de verdad y cerrar sus primeras campañas pagadas con marcas.</p>
         <div class="ctas">
           <a class="btn btn-main" href="#contacto">Quiero mi kit de arranque</a>
@@ -307,7 +333,7 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <p class="note"><strong>Primero te mostramos lo que hacemos:</strong> te re-editamos gratis uno de tus videos y ves el antes y el después.</p>
       </div>
 
-      <div class="screen-col">
+      <div class="screen-col reveal from-right">
         <div class="screen" id="screen" role="img" aria-label="Vista previa de un video vertical antes y después de la edición">
           <div class="scene">
             <div class="sky"></div>
@@ -536,6 +562,18 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
     var dots = F[face].map(function (k) { return '<circle cx="' + P[k][0] + '" cy="' + P[k][1] + '" r="8.5" fill="' + pip + '"/>'; }).join("");
     el.innerHTML = '<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="22" fill="' + fill + '"/>' + dots + "</svg>";
   });
+
+  // Aparición al bajar (solo si el navegador lo soporta y no se pidió reducir movimiento)
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if ("IntersectionObserver" in window && !reduce) {
+    document.documentElement.classList.add("js-reveal");
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.2 });
+    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  }
 
   // Antes / después
   var screen = document.getElementById("screen");
