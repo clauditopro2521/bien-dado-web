@@ -171,10 +171,10 @@ nav.links a:hover { color: var(--ink); }
 @keyframes bd-wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes bd-text { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
 @keyframes bd-sheen { 0% { transform: translateX(-120%); } 45%, 100% { transform: translateX(320%); } }
-.hero .lede { font-family: var(--display); font-weight: 400; font-size: clamp(1.05rem, 1.6vw, 1.25rem); color: var(--ink); max-width: 26em; line-height: 1.12; letter-spacing: -0.02em; word-spacing: -0.05em; text-wrap: balance; }
+.hero .lede { font-family: var(--display); font-weight: 400; font-size: clamp(1.8rem, 3.4vw, 2.8rem); color: var(--ink); max-width: 20em; line-height: 1.12; letter-spacing: -0.02em; word-spacing: -0.05em; text-wrap: balance; }
 .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero .note { font-size: var(--step--1); color: var(--ink-soft); }
-.hero .note strong { color: var(--ink); }
+.hero .ctas .btn { font-size: var(--step-1); padding: 18px 30px; }
+@media (max-width: 480px) { .hero .lede { font-size: 1.6rem; } .hero .ctas .btn { font-size: var(--step-0); padding: 16px 22px; } }
 
 .screen-col { display: grid; justify-items: center; gap: 14px; min-width: 0; }
 .screen {
@@ -325,7 +325,6 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <div class="ctas">
           <a class="btn btn-main" href="#como">Ver más de nuestros proyectos</a>
         </div>
-        <p class="note"><strong>Primero te mostramos lo que hacemos:</strong> te re-editamos gratis uno de tus videos y ves el antes y el después.</p>
       </div>
 
       <div class="screen-col reveal from-right">
