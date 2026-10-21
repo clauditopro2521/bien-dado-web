@@ -163,7 +163,10 @@ nav.links a:hover { color: var(--ink); }
 .js-reveal .reveal.from-left { transform: translateX(-80px); }
 .js-reveal .reveal.from-right { transform: translateX(80px); transition-delay: .15s; }
 .js-reveal .reveal.is-in { opacity: 1; transform: none; }
-#para-creadores { overflow-x: clip; }
+#para-creadores { overflow-x: clip; position: relative; isolation: isolate; }
+#para-creadores > .wrap { position: relative; z-index: 1; }
+/* Ondas pixeladas que siguen al cursor */
+.pixel-ripple { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; image-rendering: pixelated; }
 
 @keyframes bd-wipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 @keyframes bd-text { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
@@ -315,6 +318,7 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
   </section>
 
   <section class="hero" id="para-creadores">
+    <canvas class="pixel-ripple" aria-hidden="true"></canvas>
     <div class="wrap">
       <div class="hero-copy reveal from-left">
         <p class="lede">Tu idea merece verse increíble. Te acompañamos paso a paso a crear contenido UGC con amor por los detalles, soporte audiovisual y pauta.</p>
@@ -491,6 +495,55 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
     }, { threshold: 0.2 });
     document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
   }
+
+  // Ondas pixeladas: al pasar el cursor por la sección salen anillos de cuadraditos morados
+  (function () {
+    var section = document.getElementById("para-creadores");
+    var canvas = section && section.querySelector(".pixel-ripple");
+    var fine = window.matchMedia && window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!canvas || !canvas.getContext || reduce || !fine) return;
+    var ctx = canvas.getContext("2d");
+    var CELL = 7, GAP = 1, BAND = 2, SPEED = 0.09, LIFE = 900, MAX = 14;
+    var ripples = [], last = { x: -999, y: -999, t: 0 }, running = false, color = "#8a5cf0";
+
+    function resize() {
+      var r = section.getBoundingClientRect();
+      canvas.width = Math.ceil(r.width); canvas.height = Math.ceil(r.height);
+      color = getComputedStyle(document.documentElement).getPropertyValue("--wave").trim() || color;
+    }
+    function tick(now) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ripples = ripples.filter(function (p) { return now - p.t < LIFE; });
+      ctx.fillStyle = color;
+      ripples.forEach(function (p) {
+        var age = now - p.t, radius = age * SPEED, fade = 1 - age / LIFE;
+        var cx = Math.floor(p.x / CELL), cy = Math.floor(p.y / CELL);
+        var rc = Math.ceil(radius / CELL) + 1;
+        for (var gx = cx - rc; gx <= cx + rc; gx++) {
+          for (var gy = cy - rc; gy <= cy + rc; gy++) {
+            var d = Math.hypot((gx + 0.5) * CELL - p.x, (gy + 0.5) * CELL - p.y);
+            var off = radius - d;
+            if (off < 0 || off > BAND * CELL) continue;
+            ctx.globalAlpha = 0.55 * fade * (1 - off / (BAND * CELL));
+            ctx.fillRect(gx * CELL, gy * CELL, CELL - GAP, CELL - GAP);
+          }
+        }
+      });
+      ctx.globalAlpha = 1;
+      if (ripples.length) requestAnimationFrame(tick); else running = false;
+    }
+    section.addEventListener("pointermove", function (e) {
+      var r = section.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top, now = performance.now();
+      if (canvas.width !== Math.ceil(r.width) || canvas.height !== Math.ceil(r.height)) resize();
+      if (Math.hypot(x - last.x, y - last.y) < 28 && now - last.t < 120) return;
+      last = { x: x, y: y, t: now };
+      ripples.push({ x: x, y: y, t: now });
+      if (ripples.length > MAX) ripples.shift();
+      if (!running) { running = true; requestAnimationFrame(tick); }
+    });
+    window.addEventListener("resize", resize);
+    resize();
+  })();
 
   // Antes / después
   var screen = document.getElementById("screen");
