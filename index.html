@@ -1,0 +1,552 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Bien Dado</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Micro agencia en Lima para creadores UGC que empezaron en 2026: portafolio, grabación, edición y representación ante marcas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: póster chicha domesticado. Hero partido (titular + pantalla 9:16 antes/después), servicios como caras de dado 1 a 6, bandas de color a todo el ancho. */
+:root {
+  --paper: #f4f2fb;
+  --paper-2: #e9e5f6;
+  --ink: #1d1b3f;
+  --ink-soft: #55527a;
+  --line: #d4cfe8;
+  --fucsia: #e3177a;
+  --fucsia-ink: #ffffff;
+  --sol: #ffc83a;
+  --sol-ink: #1d1b3f;
+  --band: #1d1b3f;
+  --band-fg: #f4f2fb;
+  --band-soft: #b9b5dc;
+  --card: #ffffff;
+
+  --display: "Bowlby One", "Arial Black", Impact, sans-serif;
+  --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --step--1: 0.875rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(1.9rem, 4vw, 2.6rem);
+  --step-4: clamp(2.6rem, 7vw, 4.6rem);
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
+    --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
+    --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
+  --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
+  --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; line-height: 1.05; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--fucsia); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.label {
+  font-family: var(--mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--paper); }
+header.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand-name { font-family: var(--display); font-size: 1.3rem; letter-spacing: 0.01em; }
+.brand .die { width: 34px; height: 34px; transform: rotate(-10deg); }
+nav.links { display: flex; gap: 22px; align-items: center; }
+nav.links a { text-decoration: none; font-weight: 500; color: var(--ink-soft); }
+nav.links a:hover { color: var(--ink); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 600 var(--step-0)/1 var(--body);
+  padding: 14px 22px; border-radius: 999px; text-decoration: none; border: 2px solid transparent; cursor: pointer;
+  transition: transform .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-main { background: var(--fucsia); color: var(--fucsia-ink); }
+.btn-ghost { border-color: var(--ink); color: var(--ink); background: transparent; }
+.top .btn { padding: 10px 18px; }
+@media (max-width: 760px) { nav.links a:not(.btn) { display: none; } }
+
+/* Hero */
+.hero .wrap { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 48px; align-items: center; padding-block: 64px 72px; }
+.hero-copy { min-width: 0; display: grid; gap: 22px; }
+.hero h1 { font-family: var(--display); font-weight: 400; font-size: var(--step-4); letter-spacing: -0.01em; }
+.hero h1 em { font-style: normal; color: var(--fucsia); }
+.hero .lede { font-size: var(--step-1); color: var(--ink-soft); max-width: 34em; line-height: 1.5; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero .note { font-size: var(--step--1); color: var(--ink-soft); }
+.hero .note strong { color: var(--ink); }
+
+.screen-col { display: grid; justify-items: center; gap: 14px; min-width: 0; }
+.screen {
+  position: relative; width: 100%; max-width: 270px; aspect-ratio: 9 / 16;
+  border-radius: 28px; overflow: hidden; border: 6px solid var(--ink);
+  box-shadow: 14px 14px 0 var(--sol);
+  background: #6f6a63;
+  transition: background .5s ease;
+}
+.screen .scene { position: absolute; inset: 0; transition: filter .5s ease, transform .5s ease; }
+.screen .sky { position: absolute; inset: 0; background: linear-gradient(170deg, #9a958d 0%, #7d776f 55%, #5d5852 100%); transition: opacity .5s ease; }
+.screen .sky-good { position: absolute; inset: 0; opacity: 0; background: radial-gradient(120% 70% at 70% 15%, #ffd78a 0%, #ff8fb8 38%, #7b4bd6 75%, #2b1f63 100%); transition: opacity .5s ease; }
+.screen .subject { position: absolute; left: 50%; bottom: -6%; width: 64%; transform: translateX(-50%); }
+.screen .subject .head { width: 46%; aspect-ratio: 1; border-radius: 50%; margin: 0 auto; background: #3b3530; }
+.screen .subject .body { margin-top: 6%; width: 100%; aspect-ratio: 1.1; border-radius: 48% 48% 0 0; background: #2e2925; }
+.screen .product { position: absolute; right: 16%; bottom: 26%; width: 14%; aspect-ratio: 0.45; border-radius: 6px 6px 4px 4px; background: #c9c1b5; transition: background .5s ease, transform .5s ease; }
+.screen .hud { position: absolute; inset: 12px 12px auto; display: flex; justify-content: space-between; font: 500 11px/1 var(--mono); color: #fff; }
+.screen .rec { display: flex; align-items: center; gap: 6px; }
+.screen .rec i { width: 8px; height: 8px; border-radius: 50%; background: #ff3b3b; animation: blink 1.2s steps(2) infinite; }
+.screen .hook { position: absolute; left: 10%; right: 10%; top: 18%; text-align: center; font: 400 1.05rem/1.1 var(--display); color: #fff; opacity: 0; transform: translateY(-8px); transition: opacity .4s ease .15s, transform .4s ease .15s; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
+.screen .sub { position: absolute; left: 8%; right: 8%; bottom: 13%; text-align: center; font: 500 12px/1.35 var(--body); color: #f4f4f4; transition: all .4s ease; }
+.screen .sub span { padding: 2px 4px; }
+.screen.is-after { background: #2b1f63; }
+.screen.is-after .sky { opacity: 0; }
+.screen.is-after .sky-good { opacity: 1; }
+.screen.is-after .subject .head { background: #1f1a3d; }
+.screen.is-after .subject .body { background: #161230; }
+.screen.is-after .product { background: var(--sol); transform: rotate(-8deg) scale(1.15); }
+.screen.is-after .hook { opacity: 1; transform: none; }
+.screen.is-after .sub { font-weight: 700; font-size: 13px; }
+.screen.is-after .sub span { background: #fff; color: #1d1b3f; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.screen:not(.is-after) .scene { filter: blur(0.6px) saturate(.6); transform: rotate(1.5deg) scale(1.04); }
+
+.toggle { display: inline-flex; border: 2px solid var(--ink); border-radius: 999px; padding: 3px; gap: 3px; }
+.toggle button { font: 600 var(--step--1)/1 var(--body); padding: 9px 16px; border-radius: 999px; border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.screen-caption { font-size: var(--step--1); color: var(--ink-soft); text-align: center; max-width: 270px; }
+
+@media (max-width: 820px) {
+  .hero .wrap { grid-template-columns: 1fr; padding-block: 40px 56px; gap: 40px; }
+}
+
+/* Gear strip */
+.gear { background: var(--band); color: var(--band-fg); }
+.gear .wrap { display: flex; flex-wrap: wrap; gap: 10px 28px; padding-block: 18px; font: 500 var(--step--1)/1.4 var(--mono); letter-spacing: 0.04em; }
+.gear .wrap span { display: inline-flex; align-items: center; gap: 10px; }
+.gear .wrap span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--sol); }
+
+/* Sections */
+section.block .wrap { padding-block: 88px; display: grid; gap: 40px; }
+.section-head { display: grid; gap: 12px; max-width: 46em; }
+.section-head h2 { font-family: var(--display); font-weight: 400; font-size: var(--step-3); }
+.section-head p { color: var(--ink-soft); font-size: var(--step-1); line-height: 1.5; }
+
+/* Services */
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.svc {
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px;
+  padding: 24px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line);
+  min-width: 0;
+}
+.svc .die { width: 44px; height: 44px; }
+.svc h3 { font-size: var(--step-1); font-weight: 700; line-height: 1.25; }
+.svc p { color: var(--ink-soft); }
+.svc .price { display: grid; gap: 2px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.svc .price strong { font: 500 var(--step-1)/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.svc .price small { font-size: var(--step--1); color: var(--ink-soft); }
+.svc.featured { background: var(--fucsia); color: var(--fucsia-ink); border-color: var(--fucsia); }
+.svc.featured p, .svc.featured .price small { color: inherit; opacity: .88; }
+.svc.featured .price { border-top-color: color-mix(in srgb, var(--fucsia-ink) 45%, transparent); }
+.svc .tag { justify-self: start; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--sol); color: var(--sol-ink); }
+.svc-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.fine { font-size: var(--step--1); color: var(--ink-soft); max-width: 60em; }
+@media (max-width: 920px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .services { grid-template-columns: 1fr; } }
+
+/* Steps */
+.steps-band { background: var(--paper-2); }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; counter-reset: s; list-style: none; margin: 0; padding: 0; }
+.steps li { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.steps li::before {
+  counter-increment: s; content: "Paso " counter(s);
+  font: 500 var(--step--1)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fucsia);
+}
+.steps h3 { font-size: var(--step-2); font-family: var(--display); font-weight: 400; }
+.steps p { color: var(--ink-soft); }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr; gap: 28px; } }
+
+/* Brands */
+.brands { background: var(--band); color: var(--band-fg); }
+.brands .section-head p { color: var(--band-soft); }
+.brands .label { color: var(--sol); }
+.brands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.brands ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+.brands li { display: grid; grid-template-columns: 22px 1fr; gap: 12px; }
+.brands li::before { content: ""; width: 14px; height: 14px; margin-top: 6px; border-radius: 3px; background: var(--sol); transform: rotate(12deg); }
+.brand-price { border: 2px solid var(--band-soft); border-radius: var(--radius); padding: 28px; display: grid; gap: 14px; }
+.brand-price strong { font: 400 var(--step-3)/1 var(--display); }
+.brand-price p { color: var(--band-soft); }
+.brands .btn-main { justify-self: start; }
+@media (max-width: 760px) { .brands-grid { grid-template-columns: 1fr; } }
+
+/* Team */
+.team { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.person { display: grid; grid-template-columns: 72px 1fr; gap: 18px; padding: 24px; border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); min-width: 0; }
+.avatar { width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; font: 400 1.6rem/1 var(--display); background: var(--sol); color: var(--sol-ink); }
+.person:nth-child(2) .avatar { background: var(--fucsia); color: var(--fucsia-ink); }
+.person h3 { font-size: var(--step-1); }
+.person .role { font: 500 var(--step--1)/1.4 var(--mono); color: var(--fucsia); margin: 4px 0 10px; }
+.person p { color: var(--ink-soft); }
+@media (max-width: 760px) { .team { grid-template-columns: 1fr; } }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; max-width: 760px; }
+.faq details { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 4px 20px; }
+.faq summary { cursor: pointer; font-weight: 600; padding-block: 14px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--mono); color: var(--fucsia); font-size: 1.2rem; line-height: 1; }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { color: var(--ink-soft); padding-bottom: 16px; }
+
+/* Contact */
+.contact { background: var(--fucsia); color: var(--fucsia-ink); }
+.contact .wrap { padding-block: 80px; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; }
+.contact h2 { font: 400 var(--step-4)/1 var(--display); }
+.contact p { font-size: var(--step-1); opacity: .92; margin-top: 14px; max-width: 30em; }
+.channels { display: grid; gap: 12px; }
+.channel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 16px 18px; border-radius: var(--radius); background: var(--paper); color: var(--ink); min-width: 0; }
+.channel .label { display: block; margin-bottom: 4px; }
+.channel .value { font: 500 var(--step-1)/1.2 var(--mono); overflow-wrap: anywhere; user-select: all; }
+.copy { font: 600 var(--step--1)/1 var(--body); padding: 10px 14px; border-radius: 999px; border: 2px solid var(--ink); background: transparent; color: var(--ink); cursor: pointer; }
+@media (max-width: 760px) { .contact .wrap { grid-template-columns: 1fr; padding-block: 56px; } }
+
+footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: var(--step--1); color: var(--ink-soft); }
+
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Bien Dado, inicio">
+      <span class="die" data-face="5" data-style="logo"></span>
+      <span class="brand-name">Bien Dado</span>
+    </a>
+    <nav class="links" aria-label="Secciones">
+      <a href="#servicios">Servicios</a>
+      <a href="#como">Cómo trabajamos</a>
+      <a href="#marcas">Para marcas</a>
+      <a class="btn btn-main" href="#contacto">Escríbenos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="label">Micro agencia UGC · Lima, Perú</span>
+        <h1>Tu contenido, <em>bien dado.</em></h1>
+        <p class="lede">Ayudamos a creadores UGC que empezaron en 2026 a armar su portafolio, grabar con equipo de verdad y cerrar sus primeras campañas pagadas con marcas.</p>
+        <div class="ctas">
+          <a class="btn btn-main" href="#contacto">Quiero mi kit de arranque</a>
+          <a class="btn btn-ghost" href="#servicios">Ver servicios y precios</a>
+        </div>
+        <p class="note"><strong>Primero te mostramos lo que hacemos:</strong> te re-editamos gratis uno de tus videos y ves el antes y el después.</p>
+      </div>
+
+      <div class="screen-col">
+        <div class="screen" id="screen" role="img" aria-label="Vista previa de un video vertical antes y después de la edición">
+          <div class="scene">
+            <div class="sky"></div>
+            <div class="sky-good"></div>
+            <div class="product"></div>
+            <div class="subject"><div class="head"></div><div class="body"></div></div>
+          </div>
+          <div class="hud"><span class="rec"><i></i>REC</span><span id="tc">00:00:15</span></div>
+          <div class="hook">3 cosas que nadie te dice de este sérum</div>
+          <div class="sub"><span id="subtext">eh bueno hoy les traigo este producto que me llegó…</span></div>
+        </div>
+        <div class="toggle" role="group" aria-label="Comparar">
+          <button type="button" id="btn-before" aria-pressed="true">Antes</button>
+          <button type="button" id="btn-after" aria-pressed="false">Después</button>
+        </div>
+        <p class="screen-caption">Celular y luz de ventana, contra cámara, gancho, subtítulos y color.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="gear" aria-label="Nuestro equipo de grabación">
+    <div class="wrap">
+      <span>Sony ZV-E10</span>
+      <span>Gran angular 9 mm</span>
+      <span>DJI Mic Mini 2</span>
+      <span>Gimbal</span>
+      <span>Foto con Canon</span>
+      <span>Edición en 48 h</span>
+    </div>
+  </div>
+
+  <section class="block" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Servicios</span>
+        <h2>Seis jugadas, de tu primer video a tu primera marca</h2>
+        <p>Van ordenadas como avanza un creador: primero el portafolio, luego la producción y al final las campañas. Empieza por la que te haga falta.</p>
+      </div>
+
+      <div class="services">
+        <article class="svc featured">
+          <div class="svc-top"><span class="die" data-face="1"></span><span class="tag">Empieza aquí</span></div>
+          <h3>Kit de arranque UGC</h3>
+          <p>Portafolio de una página, media kit con tarifas sugeridas, bio optimizada en TikTok e Instagram y 3 videos de muestra editados.</p>
+          <div class="price"><strong>S/ 250 – 400</strong><small>Pago único</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="die" data-face="2"></span></div>
+          <h3>Sesión de grabación con equipo</h3>
+          <p>De 2 a 3 horas con cámara, gran angular, micrófono y gimbal. Te llevas de 4 a 6 piezas grabadas y fotos.</p>
+          <div class="price"><strong>S/ 200 – 350</strong><small>Por sesión, en Lima</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="die" data-face="3"></span></div>
+          <h3>Edición por video</h3>
+          <p>Edición vertical con subtítulos, ganchos y música, en versiones de 15 y 30 segundos. Te lo entregamos en 48 horas.</p>
+          <div class="price"><strong>S/ 40 – 80</strong><small>Por video, o 10 videos por S/ 350</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="die" data-face="4"></span></div>
+          <h3>Mentoría de ventas</h3>
+          <p>Dos sesiones de una hora: cómo escribirle a marcas, plantillas de mensaje y propuesta, y cómo cotizar licencias y exclusividad.</p>
+          <div class="price"><strong>S/ 120 – 200</strong><small>Las dos sesiones</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="die" data-face="5"></span><span class="tag">Solo pagas si cobras</span></div>
+          <h3>Representación con marcas</h3>
+          <p>Buscamos marcas, enviamos propuestas, negociamos y nos encargamos del contrato y el cobro.</p>
+          <div class="price"><strong>15 – 20 %</strong><small>De cada campaña cerrada</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="die" data-face="6"></span></div>
+          <h3>Paquete Creador Pro</h3>
+          <p>Edición de hasta 12 videos, una sesión de grabación y revisión mensual de tus métricas y tarifas. Para creadores que ya facturan.</p>
+          <div class="price"><strong>S/ 350 – 550</strong><small>Al mes</small></div>
+        </article>
+      </div>
+      <p class="fine">Los precios son referenciales y se confirman según lo que necesites. Pensados para que recuperes lo invertido con una o dos campañas.</p>
+    </div>
+  </section>
+
+  <section class="block steps-band" id="como">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Cómo trabajamos</span>
+        <h2>Así empezamos contigo</h2>
+      </div>
+      <ol class="steps">
+        <li>
+          <h3>Te re-editamos un video gratis</h3>
+          <p>Nos mandas uno de tus videos y te lo devolvemos editado. Si te gusta el antes y el después, seguimos. Si no, te quedas con el video.</p>
+        </li>
+        <li>
+          <h3>Armamos tu kit</h3>
+          <p>Portafolio, media kit, tarifas y muestras grabadas con equipo. Lo que una marca revisa antes de contratarte.</p>
+        </li>
+        <li>
+          <h3>Te presentamos a marcas</h3>
+          <p>Salimos a buscar campañas por ti. Todo queda por escrito: el porcentaje, la duración y qué marcas cuentan como conseguidas por nosotros.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="block brands" id="marcas">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Para marcas</span>
+        <h2>¿Tienes un hotel, restaurante o tienda? Te armamos la campaña completa</h2>
+        <p>Trabajamos con una cartera de creadores peruanos y nos encargamos de todo el proceso.</p>
+      </div>
+      <div class="brands-grid">
+        <ul>
+          <li>Elegimos a los creadores que encajan con tu marca y tu público.</li>
+          <li>Grabamos con equipo profesional y editamos para TikTok, Reels y Shorts.</li>
+          <li>Te entregamos los videos con licencia de uso clara, lista para pauta.</li>
+          <li>Si quieres, lanzamos los anuncios en Meta y TikTok (Spark Ads).</li>
+        </ul>
+        <div class="brand-price">
+          <span class="label">Campañas UGC llave en mano</span>
+          <strong>Desde S/ 1,500</strong>
+          <p>Por campaña, con varios creadores, grabación, edición y pauta opcional.</p>
+          <a class="btn btn-main" href="#contacto">Cotizar una campaña</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="equipo">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Quiénes somos</span>
+        <h2>Dos estudiantes de comunicaciones con cámara y estrategia</h2>
+        <p>Somos de Lima y estudiamos comunicaciones. Uno pone la producción y la edición; la otra, las marcas y la pauta.</p>
+      </div>
+      <div class="team">
+        <div class="person">
+          <div class="avatar" aria-hidden="true">C</div>
+          <div>
+            <h3>Claudito</h3>
+            <p class="role">Producción y edición</p>
+            <p>Comunicación audiovisual. Graba, ilumina y edita cada pieza para que se vea y se escuche como debe.</p>
+          </div>
+        </div>
+        <div class="person">
+          <div class="avatar" aria-hidden="true">A</div>
+          <div>
+            <h3>Angelina</h3>
+            <p class="role">Marcas, estrategia y pauta</p>
+            <p>Marketing y publicidad y comunicación para el desarrollo. Ha manejado contenido y anuncios en Meta y TikTok para varias marcas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block steps-band" id="preguntas">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Preguntas frecuentes</span>
+        <h2>Lo que nos preguntan siempre</h2>
+      </div>
+      <div class="faq">
+        <details>
+          <summary>¿Necesito muchos seguidores para trabajar con ustedes?</summary>
+          <p>No. En UGC las marcas pagan por el video, no por tus seguidores. Lo que más pesa es la calidad y la rapidez, y en eso te ayudamos.</p>
+        </details>
+        <details>
+          <summary>¿Cómo funciona la comisión de representación?</summary>
+          <p>Cobramos entre 15 y 20% solo de las campañas que nosotros te conseguimos. Firmamos un acuerdo con el porcentaje, cuánto dura y qué marcas cuentan.</p>
+        </details>
+        <details>
+          <summary>¿Trabajan con creadores fuera de Lima?</summary>
+          <p>Las sesiones de grabación son en Lima. La edición, el kit de arranque y la mentoría los hacemos a distancia, desde cualquier ciudad del Perú.</p>
+        </details>
+        <details>
+          <summary>¿Cómo pago?</summary>
+          <p>Por Yape, Plin o transferencia. En servicios de pago único pedimos la mitad al empezar y la otra mitad al entregar.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contacto">
+    <div class="wrap">
+      <div>
+        <h2>¿Lo hacemos?</h2>
+        <p>Escríbenos con el link de tu TikTok o Instagram y te decimos por dónde empezar. Respondemos en el día.</p>
+      </div>
+      <div class="channels">
+        <div class="channel">
+          <div><span class="label">WhatsApp</span><span class="value" id="v-wa">+51 9XX XXX XXX</span></div>
+          <button class="copy" type="button" data-copy="v-wa">Copiar</button>
+        </div>
+        <div class="channel">
+          <div><span class="label">Instagram y TikTok</span><span class="value" id="v-ig">@biendado.pe</span></div>
+          <button class="copy" type="button" data-copy="v-ig">Copiar</button>
+        </div>
+        <div class="channel">
+          <div><span class="label">Correo</span><span class="value" id="v-mail">hola@biendado.pe</span></div>
+          <button class="copy" type="button" data-copy="v-mail">Copiar</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Bien Dado · Lima, Perú · 2026</span>
+    <span>Contenido UGC con cámara de verdad.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // Caras de dado en SVG (posiciones en una grilla 3x3)
+  var P = { tl:[28,28], tr:[72,28], ml:[28,50], c:[50,50], mr:[72,50], bl:[28,72], br:[72,72] };
+  var F = { 1:["c"], 2:["tl","br"], 3:["tl","c","br"], 4:["tl","tr","bl","br"], 5:["tl","tr","c","bl","br"], 6:["tl","tr","ml","mr","bl","br"] };
+  document.querySelectorAll(".die[data-face]").forEach(function (el) {
+    var face = el.getAttribute("data-face");
+    var logo = el.getAttribute("data-style") === "logo";
+    var featured = el.closest(".svc.featured");
+    var fill = logo ? "var(--fucsia)" : featured ? "var(--fucsia-ink)" : "var(--ink)";
+    var pip = logo ? "var(--fucsia-ink)" : featured ? "var(--fucsia)" : "var(--paper)";
+    var dots = F[face].map(function (k) { return '<circle cx="' + P[k][0] + '" cy="' + P[k][1] + '" r="8.5" fill="' + pip + '"/>'; }).join("");
+    el.innerHTML = '<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="22" fill="' + fill + '"/>' + dots + "</svg>";
+  });
+
+  // Antes / después
+  var screen = document.getElementById("screen");
+  var before = document.getElementById("btn-before");
+  var after = document.getElementById("btn-after");
+  var sub = document.getElementById("subtext");
+  var tc = document.getElementById("tc");
+  function set(isAfter) {
+    screen.classList.toggle("is-after", isAfter);
+    before.setAttribute("aria-pressed", String(!isAfter));
+    after.setAttribute("aria-pressed", String(isAfter));
+    sub.textContent = isAfter ? "La número 2 me cambió la piel en una semana" : "eh bueno hoy les traigo este producto que me llegó…";
+    tc.textContent = isAfter ? "00:00:15" : "00:01:42";
+  }
+  before.addEventListener("click", function () { set(false); });
+  after.addEventListener("click", function () { set(true); });
+  set(false);
+
+  // Copiar datos de contacto
+  document.querySelectorAll(".copy").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var el = document.getElementById(btn.getAttribute("data-copy"));
+      var text = el.textContent.trim();
+      function done() { btn.textContent = "Copiado"; setTimeout(function () { btn.textContent = "Copiar"; }, 1600); }
+      function fallback() {
+        var r = document.createRange(); r.selectNodeContents(el);
+        var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        btn.textContent = "Seleccionado";
+        setTimeout(function () { btn.textContent = "Copiar"; }, 1600);
+      }
+      try {
+        navigator.clipboard.writeText(text).then(done, fallback);
+      } catch (e) { fallback(); }
+    });
+  });
+})();
+</script>
+
+</body></html>
