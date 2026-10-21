@@ -120,18 +120,18 @@ nav.links a:hover { color: var(--ink); }
   position: relative; display: inline-block; isolation: isolate; overflow: hidden;
   font-style: normal; color: #fff; white-space: nowrap;
   padding: 0.04em 0.28em 0.1em; border-radius: 12px;
-  animation: bd-text .7s ease-out .55s both;
+  animation: bd-text 1.1s ease-out 2.2s both;
 }
 .hero h1 em::before {
   content: ""; position: absolute; inset: 0; z-index: -2; border-radius: inherit;
   background: var(--morado); transform-origin: left center;
-  animation: bd-wipe .6s cubic-bezier(.7,0,.2,1) .15s both;
+  animation: bd-wipe 1.1s cubic-bezier(.7,0,.2,1) 1.6s both;
 }
 .hero h1 em::after {
   content: ""; position: absolute; inset: 0; z-index: -1; width: 40%;
   background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
   transform: translateX(-120%);
-  animation: bd-sheen 3.2s ease-in-out 1.4s infinite;
+  animation: bd-sheen 5s ease-in-out 3.6s infinite;
 }
 /* Pantalla de entrada: el titular ocupa toda la pantalla */
 .intro .wrap {
@@ -140,15 +140,23 @@ nav.links a:hover { color: var(--ink); }
 }
 .intro { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, var(--intro-top) 0%, var(--intro-bottom) 100%); }
 .intro .wrap { z-index: 1; }
-.intro h1 { font-size: clamp(3.2rem, 10.5vw, 8rem); }
+.intro h1 { font-size: clamp(3.2rem, 10.5vw, 8rem); animation: bd-zoom 2s cubic-bezier(.16,.8,.24,1) .1s both; }
+.intro .label { animation: bd-fade 1.2s ease 1.6s both; }
+/* El titular llega desde adelante (grande y desenfocado) hasta su lugar */
+@keyframes bd-zoom {
+  from { opacity: 0; transform: scale(1.7); filter: blur(14px); }
+  60% { opacity: 1; filter: blur(0); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+@keyframes bd-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* Olas de fondo: tres capas que se desplazan lento, en blanco y morado */
 .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: 0; pointer-events: none; }
 .wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; animation: wave-move linear infinite; }
 .wave path { fill: var(--wave); }
-.wave.w1 { opacity: .22; animation-duration: 26s; height: 100%; }
-.wave.w2 { opacity: .32; animation-duration: 19s; animation-direction: reverse; height: 82%; }
-.wave.w3 { opacity: .5; animation-duration: 14s; height: 62%; }
+.wave.w1 { opacity: .22; animation-duration: 42s; height: 100%; }
+.wave.w2 { opacity: .32; animation-duration: 32s; animation-direction: reverse; height: 82%; }
+.wave.w3 { opacity: .5; animation-duration: 24s; height: 62%; }
 @keyframes wave-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Al bajar, el texto entra por la izquierda y el mockup por la derecha */
