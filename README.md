@@ -11,7 +11,7 @@ Cada cambio que se sube a la rama `main` se publica solo en la página en 1 o 2 
 
 ## Opción rápida: editar desde el navegador (sin instalar nada)
 
-1. Pídele a Claudito que te agregue como colaborador (necesita tu usuario de GitHub) y acepta la invitación que te llega al correo.
+1. Inicia sesión en https://github.com con la cuenta del equipo (`clauditopro2521`).
 2. Entra a https://github.com/clauditopro2521/bien-dado-web y abre `index.html`.
 3. Pulsa el lápiz ✏️ (Edit this file).
 4. Cambia el texto que necesites. Usa Ctrl+F para encontrarlo.
@@ -38,6 +38,7 @@ gh auth login --hostname github.com --git-protocol https --web
 ```
 
 - Si pregunta `Authenticate Git with your GitHub credentials? (Y/n)`, escribe `Y` y pulsa Enter.
+- En el navegador, usa la cuenta del equipo (`clauditopro2521`).
 - Te mostrará un código de 8 caracteres. Entra a https://github.com/login/device, pega el código y pulsa **Authorize GitHub CLI**.
 - Sabrás que funcionó cuando veas "Congratulations, you're all set!".
 
