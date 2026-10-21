@@ -93,7 +93,6 @@ header.top {
 .top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
 .brand-name { font-family: var(--display); font-size: 1.3rem; letter-spacing: 0.01em; }
-.brand .die { width: 34px; height: 34px; transform: rotate(-10deg); }
 nav.links { display: flex; gap: 22px; align-items: center; }
 nav.links a { text-decoration: none; font-weight: 500; color: var(--ink-soft); }
 nav.links a:hover { color: var(--ink); }
@@ -225,21 +224,20 @@ section.block .wrap { padding-block: 88px; display: grid; gap: 40px; }
 /* Services */
 .services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
 .svc {
-  display: grid; grid-template-rows: auto auto 1fr auto; gap: 12px;
+  display: flex; flex-direction: column; gap: 12px;
   padding: 24px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line);
   min-width: 0;
 }
-.svc .die { width: 44px; height: 44px; }
 .svc h3 { font-size: var(--step-1); font-weight: 700; line-height: 1.25; }
 .svc p { color: var(--ink-soft); }
-.svc .price { display: grid; gap: 2px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.svc .price { margin-top: auto; display: grid; gap: 2px; padding-top: 14px; border-top: 1px dashed var(--line); }
 .svc .price strong { font: 500 var(--step-1)/1.2 var(--mono); font-variant-numeric: tabular-nums; }
 .svc .price small { font-size: var(--step--1); color: var(--ink-soft); }
 .svc.featured { background: var(--fucsia); color: var(--fucsia-ink); border-color: var(--fucsia); }
 .svc.featured p, .svc.featured .price small { color: inherit; opacity: .88; }
 .svc.featured .price { border-top-color: color-mix(in srgb, var(--fucsia-ink) 45%, transparent); }
-.svc .tag { justify-self: start; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--sol); color: var(--sol-ink); }
-.svc-top { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.svc .tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--sol); color: var(--sol-ink); }
+.svc-top { display: flex; justify-content: flex-start; align-items: center; gap: 10px; }
 .fine { font-size: var(--step--1); color: var(--ink-soft); max-width: 60em; }
 @media (max-width: 920px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .services { grid-template-columns: 1fr; } }
@@ -312,7 +310,6 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 <header class="top">
   <div class="wrap">
     <a class="brand" href="#inicio" aria-label="Bien Dado, inicio">
-      <span class="die" data-face="5" data-style="logo"></span>
       <span class="brand-name">Bien Dado</span>
     </a>
     <nav class="links" aria-label="Secciones">
@@ -381,37 +378,33 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 
       <div class="services">
         <article class="svc featured">
-          <div class="svc-top"><span class="die" data-face="1"></span><span class="tag">Empieza aquí</span></div>
+          <div class="svc-top"><span class="tag">Empieza aquí</span></div>
           <h3>Kit de arranque UGC</h3>
           <p>Portafolio de una página, media kit con tarifas sugeridas, bio optimizada en TikTok e Instagram y 3 videos de muestra editados.</p>
           <div class="price"><strong>S/ 250 – 400</strong><small>Pago único</small></div>
         </article>
         <article class="svc">
-          <div class="svc-top"><span class="die" data-face="2"></span></div>
           <h3>Sesión de grabación con equipo</h3>
           <p>De 2 a 3 horas con cámara, gran angular, micrófono y gimbal. Te llevas de 4 a 6 piezas grabadas y fotos.</p>
           <div class="price"><strong>S/ 200 – 350</strong><small>Por sesión, en Lima</small></div>
         </article>
         <article class="svc">
-          <div class="svc-top"><span class="die" data-face="3"></span></div>
           <h3>Edición por video</h3>
           <p>Edición vertical con subtítulos, ganchos y música, en versiones de 15 y 30 segundos. Te lo entregamos en 48 horas.</p>
           <div class="price"><strong>S/ 40 – 80</strong><small>Por video, o 10 videos por S/ 350</small></div>
         </article>
         <article class="svc">
-          <div class="svc-top"><span class="die" data-face="4"></span></div>
           <h3>Mentoría de ventas</h3>
           <p>Dos sesiones de una hora: cómo escribirle a marcas, plantillas de mensaje y propuesta, y cómo cotizar licencias y exclusividad.</p>
           <div class="price"><strong>S/ 120 – 200</strong><small>Las dos sesiones</small></div>
         </article>
         <article class="svc">
-          <div class="svc-top"><span class="die" data-face="5"></span><span class="tag">Solo pagas si cobras</span></div>
+          <div class="svc-top"><span class="tag">Solo pagas si cobras</span></div>
           <h3>Representación con marcas</h3>
           <p>Buscamos marcas, enviamos propuestas, negociamos y nos encargamos del contrato y el cobro.</p>
           <div class="price"><strong>15 – 20 %</strong><small>De cada campaña cerrada</small></div>
         </article>
         <article class="svc">
-          <div class="svc-top"><span class="die" data-face="6"></span></div>
           <h3>Paquete Creador Pro</h3>
           <p>Edición de hasta 12 videos, una sesión de grabación y revisión mensual de tus métricas y tarifas. Para creadores que ya facturan.</p>
           <div class="price"><strong>S/ 350 – 550</strong><small>Al mes</small></div>
@@ -556,19 +549,6 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 
 <script>
 (function () {
-  // Caras de dado en SVG (posiciones en una grilla 3x3)
-  var P = { tl:[28,28], tr:[72,28], ml:[28,50], c:[50,50], mr:[72,50], bl:[28,72], br:[72,72] };
-  var F = { 1:["c"], 2:["tl","br"], 3:["tl","c","br"], 4:["tl","tr","bl","br"], 5:["tl","tr","c","bl","br"], 6:["tl","tr","ml","mr","bl","br"] };
-  document.querySelectorAll(".die[data-face]").forEach(function (el) {
-    var face = el.getAttribute("data-face");
-    var logo = el.getAttribute("data-style") === "logo";
-    var featured = el.closest(".svc.featured");
-    var fill = logo ? "var(--fucsia)" : featured ? "var(--fucsia-ink)" : "var(--ink)";
-    var pip = logo ? "var(--fucsia-ink)" : featured ? "var(--fucsia)" : "var(--paper)";
-    var dots = F[face].map(function (k) { return '<circle cx="' + P[k][0] + '" cy="' + P[k][1] + '" r="8.5" fill="' + pip + '"/>'; }).join("");
-    el.innerHTML = '<svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><rect x="4" y="4" width="92" height="92" rx="22" fill="' + fill + '"/>' + dots + "</svg>";
-  });
-
   // Aparición al bajar (solo si el navegador lo soporta y no se pidió reducir movimiento)
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if ("IntersectionObserver" in window && !reduce) {
