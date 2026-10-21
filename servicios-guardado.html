@@ -1,0 +1,70 @@
+<!-- Copia de la sección Servicios quitada de index.html el 2026-10-20, para reponerla después.
+     El CSS va dentro del <style> de index.html y el HTML entre la sección para creadores y "Cómo trabajamos". -->
+<style>
+/* Services */
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.svc {
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 24px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line);
+  min-width: 0;
+}
+.svc h3 { font-size: var(--step-1); font-weight: 700; line-height: 1.25; }
+.svc p { color: var(--ink-soft); }
+.svc .price { margin-top: auto; display: grid; gap: 2px; padding-top: 14px; border-top: 1px dashed var(--line); }
+.svc .price strong { font: 500 var(--step-1)/1.2 var(--mono); font-variant-numeric: tabular-nums; }
+.svc .price small { font-size: var(--step--1); color: var(--ink-soft); }
+.svc.featured { background: var(--fucsia); color: var(--fucsia-ink); border-color: var(--fucsia); }
+.svc.featured p, .svc.featured .price small { color: inherit; opacity: .88; }
+.svc.featured .price { border-top-color: color-mix(in srgb, var(--fucsia-ink) 45%, transparent); }
+.svc .tag { font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 9px; border-radius: 999px; background: var(--sol); color: var(--sol-ink); }
+.svc-top { display: flex; justify-content: flex-start; align-items: center; gap: 10px; }
+.fine { font-size: var(--step--1); color: var(--ink-soft); max-width: 60em; }
+@media (max-width: 920px) { .services { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .services { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="block" id="servicios">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Servicios</span>
+        <h2>Seis jugadas, de tu primer video a tu primera marca</h2>
+        <p>Van ordenadas como avanza un creador: primero el portafolio, luego la producción y al final las campañas. Empieza por la que te haga falta.</p>
+      </div>
+
+      <div class="services">
+        <article class="svc featured">
+          <div class="svc-top"><span class="tag">Empieza aquí</span></div>
+          <h3>Kit de arranque UGC</h3>
+          <p>Portafolio de una página, media kit con tarifas sugeridas, bio optimizada en TikTok e Instagram y 3 videos de muestra editados.</p>
+          <div class="price"><strong>S/ 250 – 400</strong><small>Pago único</small></div>
+        </article>
+        <article class="svc">
+          <h3>Sesión de grabación con equipo</h3>
+          <p>De 2 a 3 horas con cámara, gran angular, micrófono y gimbal. Te llevas de 4 a 6 piezas grabadas y fotos.</p>
+          <div class="price"><strong>S/ 200 – 350</strong><small>Por sesión, en Lima</small></div>
+        </article>
+        <article class="svc">
+          <h3>Edición por video</h3>
+          <p>Edición vertical con subtítulos, ganchos y música, en versiones de 15 y 30 segundos. Te lo entregamos en 48 horas.</p>
+          <div class="price"><strong>S/ 40 – 80</strong><small>Por video, o 10 videos por S/ 350</small></div>
+        </article>
+        <article class="svc">
+          <h3>Mentoría de ventas</h3>
+          <p>Dos sesiones de una hora: cómo escribirle a marcas, plantillas de mensaje y propuesta, y cómo cotizar licencias y exclusividad.</p>
+          <div class="price"><strong>S/ 120 – 200</strong><small>Las dos sesiones</small></div>
+        </article>
+        <article class="svc">
+          <div class="svc-top"><span class="tag">Solo pagas si cobras</span></div>
+          <h3>Representación con marcas</h3>
+          <p>Buscamos marcas, enviamos propuestas, negociamos y nos encargamos del contrato y el cobro.</p>
+          <div class="price"><strong>15 – 20 %</strong><small>De cada campaña cerrada</small></div>
+        </article>
+        <article class="svc">
+          <h3>Paquete Creador Pro</h3>
+          <p>Edición de hasta 12 videos, una sesión de grabación y revisión mensual de tus métricas y tarifas. Para creadores que ya facturan.</p>
+          <div class="price"><strong>S/ 350 – 550</strong><small>Al mes</small></div>
+        </article>
+      </div>
+      <p class="fine">Los precios son referenciales y se confirman según lo que necesites. Pensados para que recuperes lo invertido con una o dos campañas.</p>
+    </div>
+  </section>
