@@ -33,12 +33,17 @@
   --step-3: clamp(1.9rem, 4vw, 2.6rem);
   --step-4: clamp(2.6rem, 7vw, 4.6rem);
   --radius: 14px;
+
+  --intro-top: #ffffff;
+  --intro-bottom: #efe8ff;
+  --wave: #8a5cf0;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
     --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
     --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
+    --intro-top: #15142e; --intro-bottom: #231c4a; --wave: #9d75ff;
     color-scheme: dark;
   }
 }
@@ -46,7 +51,8 @@
   --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
   --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
   --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
-  color-scheme: dark;
+  --intro-top: #15142e; --intro-bottom: #231c4a; --wave: #9d75ff;
+    color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -132,13 +138,18 @@ nav.links a:hover { color: var(--ink); }
   display: grid; grid-template-columns: 1fr; place-items: center; position: relative;
   min-height: calc(100vh - 66px); min-height: calc(100svh - 66px); padding-block: 48px 96px;
 }
-.scroll-cue {
-  position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
-  display: grid; justify-items: center; gap: 8px; text-decoration: none;
-  font: 500 var(--step--1)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft);
-}
-.scroll-cue i { width: 2px; height: 34px; background: linear-gradient(var(--fucsia), transparent); animation: cue 1.6s ease-in-out infinite; transform-origin: top; }
-@keyframes cue { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+.intro { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, var(--intro-top) 0%, var(--intro-bottom) 100%); }
+.intro .wrap { z-index: 1; }
+.intro h1 { font-size: clamp(3.2rem, 10.5vw, 8rem); }
+
+/* Olas de fondo: tres capas que se desplazan lento, en blanco y morado */
+.waves { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: 0; pointer-events: none; }
+.wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; animation: wave-move linear infinite; }
+.wave path { fill: var(--wave); }
+.wave.w1 { opacity: .22; animation-duration: 26s; height: 100%; }
+.wave.w2 { opacity: .32; animation-duration: 19s; animation-direction: reverse; height: 82%; }
+.wave.w3 { opacity: .5; animation-duration: 14s; height: 62%; }
+@keyframes wave-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Al bajar, el texto entra por la izquierda y el mockup por la derecha */
 .js-reveal .reveal { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
@@ -318,7 +329,11 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
         <span class="label">Micro agencia UGC · Lima, Perú</span>
         <h1>Tu contenido, <em>bien dado.</em></h1>
       </div>
-      <a class="scroll-cue" href="#para-creadores" aria-label="Bajar a la siguiente sección"><span>Desliza</span><i aria-hidden="true"></i></a>
+    </div>
+    <div class="waves" aria-hidden="true">
+      <svg class="wave w1" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,90 C200,140 400,40 600,90 C800,140 1000,40 1200,90 C1400,140 1600,40 1800,90 C2000,140 2200,40 2400,90 L2400,200 L0,200 Z"/></svg>
+      <svg class="wave w2" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,110 C300,60 500,160 800,110 C1000,75 1100,130 1200,110 C1500,60 1700,160 2000,110 C2200,75 2300,130 2400,110 L2400,200 L0,200 Z"/></svg>
+      <svg class="wave w3" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,130 C250,100 350,165 600,135 C850,105 950,160 1200,130 C1450,100 1550,165 1800,135 C2050,105 2150,160 2400,130 L2400,200 L0,200 Z"/></svg>
     </div>
   </section>
 
