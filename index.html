@@ -1,7 +1,7 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Bien Dado</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Micro agencia en Lima para creadores UGC que empezaron en 2026: portafolio, grabación, edición y representación ante marcas.">
+<meta name="description" content="Micro agencia UGC en Lima, Perú: te acompañamos paso a paso a crear contenido UGC con soporte audiovisual y pauta. Última actualización: 21 de octubre de 2026.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Instrument+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
@@ -155,17 +155,18 @@ nav.links a.btn-main, nav.links a.btn-main:hover { color: var(--fucsia-ink); }
 .wave.w1 { animation-duration: 42s; height: 100%; }
 .wave.w1 path { fill: var(--rosa-fuerte); }
 .wave.w2 { animation-duration: 32s; animation-direction: reverse; height: 82%; }
+.wave.w2 path { fill: var(--paper); }
 .wave.w3 { animation-duration: 24s; height: 62%; }
-.wave.w3 path { fill: var(--paper); }
+.wave.w3 path { fill: var(--paper-2); } /* funde con "Cómo trabajamos", que va debajo */
 @keyframes wave-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-/* Al bajar, el texto entra por la izquierda y el mockup por la derecha */
+/* Al cerrar la bienvenida, el texto entra por la izquierda y el mockup por la derecha */
 .js-reveal .reveal { opacity: 0; transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
 .js-reveal .reveal.from-left { transform: translateX(-80px); }
 .js-reveal .reveal.from-right { transform: translateX(80px); transition-delay: .15s; }
 .js-reveal .reveal.is-in { opacity: 1; transform: none; }
 #para-creadores { overflow-x: clip; position: relative; isolation: isolate; }
-#para-creadores > .wrap { position: relative; z-index: 1; }
+#para-creadores > .wrap { position: relative; z-index: 1; min-height: calc(100vh - 66px); min-height: calc(100svh - 66px); padding-block: 48px; }
 /* Ondas pixeladas que siguen al cursor */
 .pixel-ripple { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; image-rendering: pixelated; }
 
@@ -345,8 +346,8 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
 }
 .splash-btn:focus-visible { outline: 3px solid var(--lima); outline-offset: 4px; }
 html.splash-open, html.splash-open body { overflow: hidden; }
-/* Mientras se ve la bienvenida, la portada espera en pausa para animarse justo después */
-html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .intro *::after { animation-play-state: paused; }
+/* La portada (segunda pantalla) espera en pausa hasta que se ve, para animarse en ese momento */
+html.intro-wait .intro *, html.intro-wait .intro *::before, html.intro-wait .intro *::after { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
@@ -365,6 +366,7 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
 <script>
 // La bienvenida se muestra una vez por visita; si sessionStorage falla, se muestra siempre
 (function () {
+  document.documentElement.classList.add("intro-wait");
   var seen = false;
   try { seen = sessionStorage.getItem("bd-bienvenida") === "1"; } catch (e) {}
   var splash = document.getElementById("splash");
@@ -405,6 +407,7 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
     try { sessionStorage.setItem("bd-bienvenida", "1"); } catch (e) {}
     splash.classList.add("is-leaving");
     document.documentElement.classList.remove("splash-open");
+    document.dispatchEvent(new Event("bd:splash-closed"));
     setTimeout(function () { stopSmoke(); splash.remove(); }, 850);
   }
   btn.addEventListener("click", close);
@@ -514,20 +517,6 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
 </header>
 
 <main id="inicio">
-  <section class="intro hero">
-    <div class="wrap">
-      <div class="hero-title">
-        <span class="label">Micro agencia UGC · Lima, Perú</span>
-        <h1>Tu contenido, <em>bien dado.</em></h1>
-      </div>
-    </div>
-    <div class="waves" aria-hidden="true">
-      <svg class="wave w1" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,90 C200,140 400,40 600,90 C800,140 1000,40 1200,90 C1400,140 1600,40 1800,90 C2000,140 2200,40 2400,90 L2400,200 L0,200 Z"/></svg>
-      <svg class="wave w2" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,110 C300,60 500,160 800,110 C1000,75 1100,130 1200,110 C1500,60 1700,160 2000,110 C2200,75 2300,130 2400,110 L2400,200 L0,200 Z"/></svg>
-      <svg class="wave w3" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,130 C250,100 350,165 600,135 C850,105 950,160 1200,130 C1450,100 1550,165 1800,135 C2050,105 2150,160 2400,130 L2400,200 L0,200 Z"/></svg>
-    </div>
-  </section>
-
   <section class="hero" id="para-creadores">
     <canvas class="pixel-ripple" aria-hidden="true"></canvas>
     <div class="wrap">
@@ -556,6 +545,20 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
         </div>
         <p class="screen-caption">Celular y luz de ventana, contra cámara, gancho, subtítulos y color.</p>
       </div>
+    </div>
+  </section>
+
+  <section class="intro hero">
+    <div class="wrap">
+      <div class="hero-title">
+        <span class="label">Micro agencia UGC · Lima, Perú</span>
+        <h1>Tu contenido, <em>bien dado.</em></h1>
+      </div>
+    </div>
+    <div class="waves" aria-hidden="true">
+      <svg class="wave w1" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,90 C200,140 400,40 600,90 C800,140 1000,40 1200,90 C1400,140 1600,40 1800,90 C2000,140 2200,40 2400,90 L2400,200 L0,200 Z"/></svg>
+      <svg class="wave w2" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,110 C300,60 500,160 800,110 C1000,75 1100,130 1200,110 C1500,60 1700,160 2000,110 C2200,75 2300,130 2400,110 L2400,200 L0,200 Z"/></svg>
+      <svg class="wave w3" viewBox="0 0 2400 200" preserveAspectRatio="none"><path d="M0,130 C250,100 350,165 600,135 C850,105 950,160 1200,130 C1450,100 1550,165 1800,135 C2050,105 2150,160 2400,130 L2400,200 L0,200 Z"/></svg>
     </div>
   </section>
 
@@ -687,23 +690,37 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
 
 <footer>
   <div class="wrap">
-    <span>Bien Dado · Lima, Perú · 2026</span>
+    <span>Bien Dado · Lima, Perú · 2026 · Última actualización: <time datetime="2026-10-21">21 de octubre de 2026</time></span>
     <span>Contenido UGC con cámara de verdad.</span>
   </div>
 </footer>
 
 <script>
 (function () {
-  // Aparición al bajar (solo si el navegador lo soporta y no se pidió reducir movimiento)
+  // Entradas desde los lados y portada animada al verse. Si la bienvenida está abierta, esperan a que se cierre.
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if ("IntersectionObserver" in window && !reduce) {
-    document.documentElement.classList.add("js-reveal");
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.2 });
-    document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+  var canObserve = "IntersectionObserver" in window;
+  if (canObserve && !reduce) document.documentElement.classList.add("js-reveal");
+  function startObservers() {
+    if (!canObserve) { document.documentElement.classList.remove("intro-wait"); return; }
+    if (!reduce) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.2 });
+      document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+    }
+    var intro = document.querySelector(".intro");
+    var introIo = new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) { document.documentElement.classList.remove("intro-wait"); introIo.disconnect(); }
+    }, { threshold: 0.35 });
+    introIo.observe(intro);
+  }
+  if (document.documentElement.classList.contains("splash-open")) {
+    document.addEventListener("bd:splash-closed", startObservers, { once: true });
+  } else {
+    startObservers();
   }
 
   // Ondas pixeladas: al pasar el cursor por la sección salen anillos de cuadraditos rosa fuerte
