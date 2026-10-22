@@ -8,18 +8,28 @@
 <style>
 /* Layout: póster chicha domesticado. Hero partido (titular + pantalla 9:16 antes/después), bandas de color a todo el ancho. */
 :root {
-  --paper: #f4f2fb;
-  --paper-2: #e9e5f6;
-  --ink: #1d1b3f;
-  --ink-soft: #55527a;
-  --line: #d4cfe8;
-  --fucsia: #e3177a;
-  --fucsia-ink: #ffffff;
-  --sol: #ffc83a;
-  --sol-ink: #1d1b3f;
-  --band: #1d1b3f;
-  --band-fg: #f4f2fb;
-  --band-soft: #b9b5dc;
+  color-scheme: light;
+  /* Paleta oficial de Bien Dado */
+  --rosa: #FAD2E1;
+  --crema: #FFFAF7;
+  --vino: #770523;
+  --lima: #D3DE8E;
+  --rosa-fuerte: #D81A67;
+  --azul: #273D8C;
+
+  --paper: var(--crema);
+  --paper-2: var(--rosa);
+  --ink: var(--vino);
+  --ink-soft: #8a3350;
+  --line: #f0bfd2;
+  --fucsia: var(--rosa-fuerte);
+  --fucsia-ink: var(--crema);
+  --fucsia-text: #b0124f; /* rosa fuerte oscurecido para texto chico sobre rosa claro */
+  --sol: var(--lima);
+  --sol-ink: var(--vino);
+  --band: var(--azul);
+  --band-fg: var(--crema);
+  --band-soft: var(--rosa);
   --card: #ffffff;
 
   --display: "Bowlby One", "Arial Black", Impact, sans-serif;
@@ -34,25 +44,11 @@
   --step-4: clamp(2.6rem, 7vw, 4.6rem);
   --radius: 14px;
 
-  --intro-top: #ffffff;
-  --intro-bottom: #efe8ff;
-  --wave: #8a5cf0;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
-    --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
-    --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
-    --intro-top: #15142e; --intro-bottom: #231c4a; --wave: #9d75ff;
-    color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --paper: #15142e; --paper-2: #1d1c3c; --ink: #f1effa; --ink-soft: #aeabcf; --line: #34325c;
-  --fucsia: #ff3d93; --fucsia-ink: #15142e; --sol: #ffd25c; --sol-ink: #15142e;
-  --band: #252350; --band-fg: #f1effa; --band-soft: #b9b5dc; --card: #1d1c3c;
-  --intro-top: #15142e; --intro-bottom: #231c4a; --wave: #9d75ff;
-    color-scheme: dark;
+  /* Portada en azul con olas rosa que terminan en crema */
+  --intro-top: var(--azul);
+  --intro-bottom: #22357a;
+  --wave: var(--rosa);
+  --ripple: var(--rosa-fuerte);
 }
 
 * { box-sizing: border-box; }
@@ -96,6 +92,7 @@ header.top {
 nav.links { display: flex; gap: 22px; align-items: center; }
 nav.links a { text-decoration: none; font-weight: 500; color: var(--ink-soft); }
 nav.links a:hover { color: var(--ink); }
+nav.links a.btn-main, nav.links a.btn-main:hover { color: var(--fucsia-ink); }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   font: 600 var(--step-0)/1 var(--body);
@@ -112,18 +109,18 @@ nav.links a:hover { color: var(--ink); }
 .hero .wrap { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 48px; align-items: center; padding-block: 64px 72px; }
 .hero-copy { min-width: 0; display: grid; gap: 22px; }
 .hero h1 { font-family: var(--display); font-weight: 400; font-size: var(--step-4); letter-spacing: -0.01em; }
-/* Titular centrado: "bien dado" en caja morada que entra de izquierda a derecha */
+/* Titular centrado: "bien dado" en caja rosa fuerte que entra de izquierda a derecha */
 .hero-title { grid-column: 1 / -1; display: grid; justify-items: center; gap: 14px; text-align: center; }
 .hero h1 em {
-  --morado: #6b2fd6;
+  --caja: var(--rosa-fuerte);
   position: relative; display: inline-block; isolation: isolate; overflow: hidden;
-  font-style: normal; color: #fff; white-space: nowrap;
+  font-style: normal; color: var(--crema); white-space: nowrap;
   padding: 0.04em 0.28em 0.1em; border-radius: 12px;
   animation: bd-text 1.1s ease-out 2.2s both;
 }
 .hero h1 em::before {
   content: ""; position: absolute; inset: 0; z-index: -2; border-radius: inherit;
-  background: var(--morado); transform-origin: left center;
+  background: var(--caja); transform-origin: left center;
   animation: bd-wipe 1.1s cubic-bezier(.7,0,.2,1) 1.6s both;
 }
 .hero h1 em::after {
@@ -139,6 +136,8 @@ nav.links a:hover { color: var(--ink); }
 }
 .intro { position: relative; overflow: hidden; isolation: isolate; background: linear-gradient(180deg, var(--intro-top) 0%, var(--intro-bottom) 100%); }
 .intro .wrap { z-index: 1; }
+.intro h1 { color: var(--crema); }
+.intro .label { color: var(--rosa); }
 .intro h1 { font-size: clamp(3.2rem, 10.5vw, 8rem); animation: bd-zoom 2s cubic-bezier(.16,.8,.24,1) .1s both; }
 .intro .label { animation: bd-fade 1.2s ease 1.6s both; }
 /* El titular llega desde adelante (grande y desenfocado) hasta su lugar */
@@ -149,13 +148,15 @@ nav.links a:hover { color: var(--ink); }
 }
 @keyframes bd-fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-/* Olas de fondo: tres capas que se desplazan lento, en blanco y morado */
+/* Olas de fondo: rosa fuerte, rosa claro y crema, que funde con la sección siguiente */
 .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 42%; z-index: 0; pointer-events: none; }
 .wave { position: absolute; left: 0; bottom: 0; width: 200%; height: 100%; animation: wave-move linear infinite; }
 .wave path { fill: var(--wave); }
-.wave.w1 { opacity: .22; animation-duration: 42s; height: 100%; }
-.wave.w2 { opacity: .32; animation-duration: 32s; animation-direction: reverse; height: 82%; }
-.wave.w3 { opacity: .5; animation-duration: 24s; height: 62%; }
+.wave.w1 { animation-duration: 42s; height: 100%; }
+.wave.w1 path { fill: var(--rosa-fuerte); }
+.wave.w2 { animation-duration: 32s; animation-direction: reverse; height: 82%; }
+.wave.w3 { animation-duration: 24s; height: 62%; }
+.wave.w3 path { fill: var(--paper); }
 @keyframes wave-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* Al bajar, el texto entra por la izquierda y el mockup por la derecha */
@@ -186,7 +187,7 @@ nav.links a:hover { color: var(--ink); }
 }
 .screen .scene { position: absolute; inset: 0; transition: filter .5s ease, transform .5s ease; }
 .screen .sky { position: absolute; inset: 0; background: linear-gradient(170deg, #9a958d 0%, #7d776f 55%, #5d5852 100%); transition: opacity .5s ease; }
-.screen .sky-good { position: absolute; inset: 0; opacity: 0; background: radial-gradient(120% 70% at 70% 15%, #ffd78a 0%, #ff8fb8 38%, #7b4bd6 75%, #2b1f63 100%); transition: opacity .5s ease; }
+.screen .sky-good { position: absolute; inset: 0; opacity: 0; background: radial-gradient(120% 70% at 70% 15%, var(--crema) 0%, var(--rosa) 30%, var(--rosa-fuerte) 62%, var(--azul) 100%); transition: opacity .5s ease; }
 .screen .subject { position: absolute; left: 50%; bottom: -6%; width: 64%; transform: translateX(-50%); }
 .screen .subject .head { width: 46%; aspect-ratio: 1; border-radius: 50%; margin: 0 auto; background: #3b3530; }
 .screen .subject .body { margin-top: 6%; width: 100%; aspect-ratio: 1.1; border-radius: 48% 48% 0 0; background: #2e2925; }
@@ -197,15 +198,15 @@ nav.links a:hover { color: var(--ink); }
 .screen .hook { position: absolute; left: 10%; right: 10%; top: 18%; text-align: center; font: 400 1.05rem/1.1 var(--display); color: #fff; opacity: 0; transform: translateY(-8px); transition: opacity .4s ease .15s, transform .4s ease .15s; text-shadow: 0 2px 0 rgba(0,0,0,.25); }
 .screen .sub { position: absolute; left: 8%; right: 8%; bottom: 13%; text-align: center; font: 500 12px/1.35 var(--body); color: #f4f4f4; transition: all .4s ease; }
 .screen .sub span { padding: 2px 4px; }
-.screen.is-after { background: #2b1f63; }
+.screen.is-after { background: var(--azul); }
 .screen.is-after .sky { opacity: 0; }
 .screen.is-after .sky-good { opacity: 1; }
-.screen.is-after .subject .head { background: #1f1a3d; }
-.screen.is-after .subject .body { background: #161230; }
+.screen.is-after .subject .head { background: #4a0316; }
+.screen.is-after .subject .body { background: var(--vino); }
 .screen.is-after .product { background: var(--sol); transform: rotate(-8deg) scale(1.15); }
 .screen.is-after .hook { opacity: 1; transform: none; }
 .screen.is-after .sub { font-weight: 700; font-size: 13px; }
-.screen.is-after .sub span { background: #fff; color: #1d1b3f; border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.screen.is-after .sub span { background: var(--crema); color: var(--vino); border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .screen:not(.is-after) .scene { filter: blur(0.6px) saturate(.6); transform: rotate(1.5deg) scale(1.04); }
 
 .toggle { display: inline-flex; border: 2px solid var(--ink); border-radius: 999px; padding: 3px; gap: 3px; }
@@ -230,7 +231,7 @@ section.block .wrap { padding-block: 88px; display: grid; gap: 40px; }
 .steps li { display: grid; gap: 10px; align-content: start; min-width: 0; }
 .steps li::before {
   counter-increment: s; content: "Paso " counter(s);
-  font: 500 var(--step--1)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fucsia);
+  font: 500 var(--step--1)/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--fucsia-text);
 }
 .steps h3 { font-size: var(--step-2); font-family: var(--display); font-weight: 400; }
 .steps p { color: var(--ink-soft); }
@@ -284,10 +285,146 @@ section.block .wrap { padding-block: 88px; display: grid; gap: 40px; }
 footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: var(--step--1); color: var(--ink-soft); }
 
 @keyframes blink { 50% { opacity: 0; } }
+
+/* Bienvenida: humo de colores de la paleta que se mueve solo y sigue al cursor, con el nombre y el botón al centro */
+.splash {
+  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; overflow: hidden;
+  padding: 16px; background: var(--azul); transition: opacity .8s ease; touch-action: none;
+}
+.splash.is-leaving { opacity: 0; pointer-events: none; }
+.splash-smoke { position: absolute; inset: 0; width: 100%; height: 100%; filter: blur(24px) saturate(1.1); transform: scale(1.08); }
+.splash-content { position: relative; display: grid; justify-items: center; gap: 24px; text-align: center; }
+.splash-name {
+  margin: 0; font: 400 clamp(2.8rem, 13vw, 7.5rem)/1 var(--display); color: var(--crema); letter-spacing: -0.01em; white-space: nowrap;
+  text-shadow: 0 4px 0 var(--vino), 0 10px 40px rgba(39, 61, 140, .7);
+}
+.splash-btn { font-size: 1.1rem; padding: 16px 26px; box-shadow: 0 8px 30px rgba(119, 5, 35, .35); }
+.splash-btn:focus-visible { outline: 3px solid var(--lima); outline-offset: 4px; }
+html.splash-open, html.splash-open body { overflow: hidden; }
+/* Mientras se ve la bienvenida, la portada espera en pausa para animarse justo después */
+html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .intro *::after { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
 </style>
+
+<div class="splash" id="splash" role="dialog" aria-modal="true" aria-label="Bienvenida a Bien Dado">
+  <canvas class="splash-smoke" aria-hidden="true"></canvas>
+  <div class="splash-content">
+    <p class="splash-name">Bien Dado</p>
+    <button type="button" class="btn btn-main splash-btn" id="splash-go">Comienza tu marca con nosotros</button>
+  </div>
+</div>
+<script>
+// La bienvenida se muestra una vez por visita; si sessionStorage falla, se muestra siempre
+(function () {
+  var seen = false;
+  try { seen = sessionStorage.getItem("bd-bienvenida") === "1"; } catch (e) {}
+  var splash = document.getElementById("splash");
+  if (seen) { splash.remove(); return; }
+  document.documentElement.classList.add("splash-open");
+  var btn = document.getElementById("splash-go");
+  btn.focus({ preventScroll: true });
+  var stopSmoke = smoke(splash, splash.querySelector(".splash-smoke"));
+  function close() {
+    if (splash.classList.contains("is-leaving")) return;
+    try { sessionStorage.setItem("bd-bienvenida", "1"); } catch (e) {}
+    splash.classList.add("is-leaving");
+    document.documentElement.classList.remove("splash-open");
+    setTimeout(function () { stopSmoke(); splash.remove(); }, 850);
+  }
+  btn.addEventListener("click", close);
+
+  // Humo: manchas grandes y suaves que derivan lento; el cursor (o el dedo) las atrae y deja una estela que se disuelve
+  function smoke(host, canvas) {
+    var ctx = canvas.getContext && canvas.getContext("2d");
+    if (!ctx) return function () {};
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var SCALE = 0.5; // el humo es borroso: se dibuja a media resolución y el navegador lo escala
+    var W = 0, H = 0, raf = 0, t0 = performance.now();
+    var pointer = { x: 0.5, y: 0.5, active: false };
+    var trail = [];
+    var blobs = [
+      { c: "216,26,103", a: 0.55, r: 0.55, fx: 0.11, fy: 0.07, px: 0.0, py: 1.3, ox: 0.25, oy: 0.30 },
+      { c: "119,5,35",   a: 0.65, r: 0.60, fx: 0.06, fy: 0.09, px: 2.1, py: 0.4, ox: 0.75, oy: 0.70 },
+      { c: "250,210,225", a: 0.35, r: 0.45, fx: 0.08, fy: 0.05, px: 4.0, py: 2.2, ox: 0.70, oy: 0.25 },
+      { c: "211,222,142", a: 0.25, r: 0.40, fx: 0.05, fy: 0.10, px: 1.2, py: 3.3, ox: 0.20, oy: 0.80 },
+      { c: "216,26,103", a: 0.40, r: 0.42, fx: 0.09, fy: 0.06, px: 5.1, py: 0.9, ox: 0.55, oy: 0.55 },
+      { c: "39,61,140",  a: 0.70, r: 0.50, fx: 0.07, fy: 0.08, px: 3.3, py: 4.4, ox: 0.45, oy: 0.15 }
+    ];
+
+    function resize() {
+      W = Math.max(1, Math.round(host.clientWidth * SCALE));
+      H = Math.max(1, Math.round(host.clientHeight * SCALE));
+      canvas.width = W; canvas.height = H;
+    }
+    function spot(x, y, r, rgb, a) {
+      var g = ctx.createRadialGradient(x, y, 0, x, y, r);
+      g.addColorStop(0, "rgba(" + rgb + "," + a + ")");
+      g.addColorStop(1, "rgba(" + rgb + ",0)");
+      ctx.fillStyle = g;
+      ctx.fillRect(x - r, y - r, r * 2, r * 2);
+    }
+    function draw(now) {
+      var t = (now - t0) / 1000, m = Math.min(W, H);
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = "#273D8C";
+      ctx.fillRect(0, 0, W, H);
+      ctx.globalCompositeOperation = "screen";
+      blobs.forEach(function (b) {
+        var x = (b.ox + 0.18 * Math.sin(t * b.fx * 6.28 + b.px)) * W;
+        var y = (b.oy + 0.18 * Math.cos(t * b.fy * 6.28 + b.py)) * H;
+        if (pointer.active) { // atracción suave hacia el cursor
+          x += (pointer.x * W - x) * 0.18;
+          y += (pointer.y * H - y) * 0.18;
+        }
+        spot(x, y, b.r * m * (1 + 0.08 * Math.sin(t * 0.7 + b.px)), b.c, b.a);
+      });
+      for (var i = trail.length - 1; i >= 0; i--) {
+        var p = trail[i];
+        p.r += 1.2; p.a *= 0.955;
+        if (p.a < 0.01) { trail.splice(i, 1); continue; }
+        spot(p.x, p.y, p.r, p.c, p.a);
+      }
+    }
+    function loop(now) {
+      if (Math.round(host.clientWidth * SCALE) !== W || Math.round(host.clientHeight * SCALE) !== H) resize();
+      draw(now); raf = requestAnimationFrame(loop);
+    }
+    function start() { if (!raf && !document.hidden) raf = requestAnimationFrame(loop); }
+    function stop() { cancelAnimationFrame(raf); raf = 0; }
+    function onMove(e) {
+      var r = host.getBoundingClientRect();
+      pointer.x = (e.clientX - r.left) / r.width; pointer.y = (e.clientY - r.top) / r.height; pointer.active = true;
+      trail.push({ x: pointer.x * W, y: pointer.y * H, r: 10, a: 0.45, c: trail.length % 2 ? "250,210,225" : "216,26,103" });
+      if (trail.length > 70) trail.shift();
+    }
+    function onLeave() { pointer.active = false; }
+    function onVis() { document.hidden ? stop() : start(); }
+
+    resize();
+    if (reduce) { // humo quieto, sin interacción
+      requestAnimationFrame(function () { resize(); draw(t0 + 4000); });
+      window.addEventListener("resize", function () { resize(); draw(t0 + 4000); });
+      return function () {};
+    }
+    host.addEventListener("pointermove", onMove);
+    host.addEventListener("pointerdown", onMove);
+    host.addEventListener("pointerleave", onLeave);
+    window.addEventListener("resize", resize);
+    document.addEventListener("visibilitychange", onVis);
+    start();
+    return function () {
+      stop();
+      host.removeEventListener("pointermove", onMove);
+      host.removeEventListener("pointerdown", onMove);
+      host.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("resize", resize);
+      document.removeEventListener("visibilitychange", onVis);
+    };
+  }
+})();
+</script>
 
 <header class="top">
   <div class="wrap">
@@ -495,7 +632,7 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
     document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
   }
 
-  // Ondas pixeladas: al pasar el cursor por la sección salen anillos de cuadraditos morados
+  // Ondas pixeladas: al pasar el cursor por la sección salen anillos de cuadraditos rosa fuerte
   (function () {
     var section = document.getElementById("para-creadores");
     var canvas = section && section.querySelector(".pixel-ripple");
@@ -503,12 +640,12 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
     if (!canvas || !canvas.getContext || reduce || !fine) return;
     var ctx = canvas.getContext("2d");
     var CELL = 7, GAP = 1, BAND = 2, SPEED = 0.09, LIFE = 900, MAX = 14;
-    var ripples = [], last = { x: -999, y: -999, t: 0 }, running = false, color = "#8a5cf0";
+    var ripples = [], last = { x: -999, y: -999, t: 0 }, running = false, color = "#D81A67";
 
     function resize() {
       var r = section.getBoundingClientRect();
       canvas.width = Math.ceil(r.width); canvas.height = Math.ceil(r.height);
-      color = getComputedStyle(document.documentElement).getPropertyValue("--wave").trim() || color;
+      color = getComputedStyle(document.documentElement).getPropertyValue("--ripple").trim() || color;
     }
     function tick(now) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
