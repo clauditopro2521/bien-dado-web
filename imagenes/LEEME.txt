@@ -1,0 +1,13 @@
+FOTOS DE LOS CARRUSELES DE LA BIENVENIDA
+
+Pon aquí las fotos con estos nombres exactos:
+  carrusel-1.jpg a carrusel-4.jpg  -> columna izquierda (sube)
+  carrusel-5.jpg a carrusel-8.jpg  -> columna derecha (baja)
+
+Formato recomendado:
+  - Vertical 9:16, ideal 540 x 960 px
+  - JPG o WebP, menos de 200 KB cada una
+  - Si usas WebP o .png, cambia también el nombre en la lista CARRUSEL dentro de index.html
+
+Mientras una foto no exista, la página muestra una tarjeta provisional
+con los colores de la marca y el texto "Tu foto aquí".

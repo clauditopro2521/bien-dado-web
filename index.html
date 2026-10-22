@@ -299,6 +299,50 @@ footer .wrap { padding-block: 28px; display: flex; flex-wrap: wrap; justify-cont
   text-shadow: 0 4px 0 var(--vino), 0 10px 40px rgba(39, 61, 140, .7);
 }
 .splash-btn { font-size: 1.1rem; padding: 16px 26px; box-shadow: 0 8px 30px rgba(119, 5, 35, .35); }
+/* Flotado leve del nombre y el botón, desfasados para que se sienta orgánico */
+.splash-name { animation: splash-float 5s ease-in-out infinite; }
+.splash-btn { animation: splash-float 5s ease-in-out -1.4s infinite; }
+@keyframes splash-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(-0.6deg); } }
+
+/* Carruseles verticales a los lados: tarjetas 9:16 que suben y bajan sin fin */
+.splash-reel {
+  position: absolute; top: 0; bottom: 0; width: clamp(110px, 15vw, 200px); overflow: hidden;
+  -webkit-mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+  mask-image: linear-gradient(transparent, #000 18%, #000 82%, transparent);
+}
+.splash-reel.left { left: clamp(12px, 5vw, 80px); transform: rotate(-4deg); }
+.splash-reel.right { right: clamp(12px, 5vw, 80px); transform: rotate(4deg); }
+.reel-track { display: grid; gap: 18px; padding-bottom: 18px; animation: reel-up 28s linear infinite; will-change: transform; }
+.splash-reel:hover .reel-track { animation-play-state: paused; }
+.splash-reel.right .reel-track { animation-name: reel-down; animation-duration: 32s; }
+@keyframes reel-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes reel-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+.reel-card {
+  position: relative; aspect-ratio: 9 / 16; border-radius: 18px; overflow: hidden;
+  border: 3px solid var(--crema); box-shadow: 0 10px 30px rgba(39, 61, 140, .35);
+  background: var(--card-bg); background-size: cover; background-position: center;
+}
+.reel-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .4s ease; }
+.reel-card.has-photo img { opacity: 1; }
+.reel-card.has-photo span { display: none; }
+/* Tarjeta provisional: botón de play al centro */
+.reel-card:not(.has-photo)::before {
+  content: ""; position: absolute; left: 50%; top: 45%; transform: translate(-40%, -50%);
+  border-style: solid; border-width: 14px 0 14px 22px; border-color: transparent transparent transparent var(--crema); opacity: .85;
+}
+.reel-card span {
+  position: absolute; left: 8px; right: 8px; bottom: 10px; text-align: center;
+  font: 500 11px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--crema);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+}
+.reel-card.c1 { --card-bg: radial-gradient(120% 80% at 70% 20%, var(--rosa) 0%, var(--rosa-fuerte) 55%, var(--vino) 100%); }
+.reel-card.c2 { --card-bg: linear-gradient(160deg, var(--lima) 0%, #9fb054 45%, var(--azul) 100%); }
+.reel-card.c3 { --card-bg: radial-gradient(110% 70% at 30% 25%, var(--crema) 0%, var(--rosa) 40%, var(--azul) 100%); }
+.reel-card.c4 { --card-bg: linear-gradient(200deg, var(--rosa-fuerte) 0%, var(--vino) 70%); }
+@media (max-width: 640px) {
+  .splash-reel { width: 84px; opacity: .45; }
+  .splash-reel.left { left: -18px; } .splash-reel.right { right: -18px; }
+}
 .splash-btn:focus-visible { outline: 3px solid var(--lima); outline-offset: 4px; }
 html.splash-open, html.splash-open body { overflow: hidden; }
 /* Mientras se ve la bienvenida, la portada espera en pausa para animarse justo después */
@@ -310,6 +354,9 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
 
 <div class="splash" id="splash" role="dialog" aria-modal="true" aria-label="Bienvenida a Bien Dado">
   <canvas class="splash-smoke" aria-hidden="true"></canvas>
+  <!-- Carruseles: las tarjetas se generan desde CARRUSEL (en el script de abajo) con fotos de la carpeta imagenes/ -->
+  <div class="splash-reel left" aria-hidden="true"><div class="reel-track"></div></div>
+  <div class="splash-reel right" aria-hidden="true"><div class="reel-track"></div></div>
   <div class="splash-content">
     <p class="splash-name">Bien Dado</p>
     <button type="button" class="btn btn-main splash-btn" id="splash-go">Comienza tu marca con nosotros</button>
@@ -326,6 +373,33 @@ html.splash-open .intro *, html.splash-open .intro *::before, html.splash-open .
   var btn = document.getElementById("splash-go");
   btn.focus({ preventScroll: true });
   var stopSmoke = smoke(splash, splash.querySelector(".splash-smoke"));
+  reels();
+
+  // Fotos de los carruseles. Ponlas en la carpeta imagenes/ con estos nombres (vertical 9:16, ideal 540×960 px, JPG o WebP de menos de 200 KB).
+  // Mientras una foto no exista, se ve una tarjeta provisional con los colores de la marca y el texto "Tu foto aquí".
+  function reels() {
+    var CARRUSEL = {
+      left:  ["carrusel-1.jpg", "carrusel-2.jpg", "carrusel-3.jpg", "carrusel-4.jpg"],
+      right: ["carrusel-5.jpg", "carrusel-6.jpg", "carrusel-7.jpg", "carrusel-8.jpg"]
+    };
+    ["left", "right"].forEach(function (side) {
+      var track = splash.querySelector(".splash-reel." + side + " .reel-track");
+      var list = CARRUSEL[side];
+      // La lista va dos veces para que el bucle no tenga corte
+      list.concat(list).forEach(function (file, i) {
+        var card = document.createElement("div");
+        card.className = "reel-card c" + ((i + (side === "right" ? 2 : 0)) % 4 + 1);
+        card.innerHTML = '<span>Tu foto aquí</span>';
+        var img = new Image();
+        img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+        img.onload = function () { card.classList.add("has-photo"); };
+        img.onerror = function () { img.remove(); };
+        img.src = "imagenes/" + file;
+        card.appendChild(img);
+        track.appendChild(card);
+      });
+    });
+  }
   function close() {
     if (splash.classList.contains("is-leaving")) return;
     try { sessionStorage.setItem("bd-bienvenida", "1"); } catch (e) {}
